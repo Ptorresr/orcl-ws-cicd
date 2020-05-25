@@ -1,5 +1,5 @@
 """
-Unit tests for simple Python application
+Unit test for simple Python application
 """
 
 import promotion
