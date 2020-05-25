@@ -3,6 +3,7 @@ Simple Python applications to show CI/CD capabilities.
 """
 
 from bottle import Bottle, run
+import cx_Oracle
 
 app = Bottle()
 
@@ -22,5 +23,18 @@ def decrease(salary, amount):
     return str(int(salary) - int(amount))
 
 
+@app.route('/conn')
+def conn():
+    return str(connection.version)
+
+
 if __name__ == '__main__':
     run(app, host='0.0.0.0', port=8080)
+    DBUSER = 'hr'
+    DBPASS = 'OraPTS#2020_'
+    DBHOST = '130.61.182.140'
+    DBSERV = 'pdb03.sub05131148020.holvcn.oraclevcn.com'
+    conn_string = DBUSER + '/' + DBPASS + '@//' + DBHOST + '/' + DBSERV
+    connection = cx_Oracle.connect(conn_string)
+    run(app, host='0.0.0.0', port=8080)
+    connection.close()
