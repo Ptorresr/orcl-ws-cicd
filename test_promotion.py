@@ -1,5 +1,5 @@
 """
-Unit test for simple Python application
+Unit tests for simple Python application
 """
 
 
