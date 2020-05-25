@@ -18,3 +18,5 @@ class TestPromotion:
 
     def test_decrease(self):
         assert 970 == promotion.decrease(1150, 180)
+
+
