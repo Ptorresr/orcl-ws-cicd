@@ -16,3 +16,4 @@ build:
             . orclvenv/bin/activate
             flake8 --exclude=orclvenv* --statistics
             pytest -v --cov=promotion
+
