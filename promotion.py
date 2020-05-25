@@ -36,5 +36,5 @@ if __name__ == '__main__':
     DBSERV = 'pdb03.sub05131148020.holvcn.oraclevcn.com'
     conn_string = DBUSER + '/' + DBPASS + '@//' + DBHOST + '/' + DBSERV
     connection = cx_Oracle.connect(conn_string)
-    run(app, host='0.0.0.0', port=8080)
+    run(app, host='0.0.0.0', port=8005)
     connection.close()
