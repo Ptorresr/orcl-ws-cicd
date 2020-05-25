@@ -1,5 +1,5 @@
 """
-Simple Python application to show CI/CD capabilities.
+Simple Python applications to show CI/CD capabilities.
 """
 
 from bottle import Bottle, run
