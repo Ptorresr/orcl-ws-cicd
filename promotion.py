@@ -43,6 +43,7 @@ def emp():
     employees += '</table>'
     return str(employees)
 
+
 @app.route('/salary_increase/<percentage>')
 def sal_inc(percentage):
     sql = '''select FIRST_NAME, LAST_NAME, SALARY, COMMISSION_PCT,
