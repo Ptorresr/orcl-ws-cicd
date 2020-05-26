@@ -29,12 +29,12 @@ def conn():
 
 
 if __name__ == '__main__':
-    run(app, host='0.0.0.0', port=8080)
+    run(app, host='0.0.0.0', port=8880)
     DBUSER = 'hr'
     DBPASS = 'OraPTS#2020_'
     DBHOST = '130.61.182.140'
     DBSERV = 'pdb03.sub05131148020.holvcn.oraclevcn.com'
     conn_string = DBUSER + '/' + DBPASS + '@//' + DBHOST + '/' + DBSERV
     connection = cx_Oracle.connect(conn_string)
-    run(app, host='0.0.0.0', port=8080)
+    run(app, host='0.0.0.0', port=8880)
     connection.close()
