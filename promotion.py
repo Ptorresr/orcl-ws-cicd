@@ -42,6 +42,7 @@ def emp():
         employees += str(res[4]) + '</td></tr>'
     employees += '</table>'
     return str(employees)
+
 if __name__ == '__main__':
     DBUSER = 'hr'
     DBPASS = 'OraPTS#2020_'
