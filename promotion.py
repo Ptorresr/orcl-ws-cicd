@@ -43,6 +43,7 @@ def emp():
     employees += '</table>'
     return str(employees)
 
+
 if __name__ == '__main__':
     DBUSER = 'hr'
     DBPASS = 'OraPTS#2020_'
