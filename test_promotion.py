@@ -47,4 +47,3 @@ def test_connection():
     response = connection.version
     assert response == '19.6.0.0.0'
     connection.close()
-
