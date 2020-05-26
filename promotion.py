@@ -27,6 +27,7 @@ def decrease(salary, amount):
 def conn():
     return str(connection.version)
 
+
 @app.route('/employees')
 def emp():
     sql = '''select FIRST_NAME, LAST_NAME, SALARY, COMMISSION_PCT,
@@ -36,7 +37,9 @@ def emp():
                    <td>Salary</td><td>Commission</td><td>Total</td></tr>'''
     cursor = connection.cursor()
     for res in cursor.execute(sql):
-        employees += '<tr><td>' + res[0] + '</td><td>' + res[1] + '</td><td>' + str(res[2]) + '</td><td>' + str(res[3]) + '</td><td>' + str(res[4]) + '</td></tr>'
+        employees += '<tr><td>' + res[0] + '</td><td>' + res[1] + '</td><td>'
+        employees += str(res[2]) + '</td><td>' + str(res[3]) + '</td><td>'
+        employees += str(res[4]) + '</td></tr>'
     employees += '</table>'
     return str(employees)
 if __name__ == '__main__':
