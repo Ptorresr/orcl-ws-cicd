@@ -27,9 +27,9 @@ build:
             . orclvenv/bin/activate
             flake8 --exclude=orclvenv* --statistics
             pytest -v --cov=promotion
-# Step 4: push application in docker image to OCIR 
-- internal/docker-push:
-entrypoint: ./promotion
+    # Step 4: push application in docker image to OCIR 
+   - internal/docker-push:
+            entrypoint: ./promotion
             cmd: 0.0.0.0 8880
             env: "DB_USER=${DB_USER} DB_PASSWORD=${DB_PASSWORD} DB_HOST=${DB_HOST} DB_SERVICE=${DB_SERVICE}"
             working-dir: $WERCKER_ROOT
