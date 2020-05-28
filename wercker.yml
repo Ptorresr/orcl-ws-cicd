@@ -27,7 +27,7 @@ build:
             . orclvenv/bin/activate
             flake8 --exclude=orclvenv* --statistics
             pytest -v --cov=promotion
-    # Step 4:Push application in docker image to OCIR 
+    # Step 4:Push application in docker image to OCIR PHX
     - internal/docker-push:
             entrypoint: ./promotion
             cmd: 0.0.0.0 8880
@@ -38,4 +38,4 @@ build:
             username: $DOCKER_USERNAME
             password: $DOCKER_PASSWORD
             repository: $DOCKER_REPO
-            registry:https://phx.ocir.io
+            registry: https://phx.ocir.io
