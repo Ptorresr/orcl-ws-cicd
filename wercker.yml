@@ -43,6 +43,7 @@ build:
 deploy:
     box: python:3.7
     steps:
+
 # Step 1: expand environment variables in .template files and remove extension
 - bash-template
 # Step 2: create a directory and move .yml template files inside
