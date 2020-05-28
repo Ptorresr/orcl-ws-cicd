@@ -12,7 +12,7 @@ metadata:
 spec:
   ports:
   - port: 80
-    targetPort: 8080
+    targetPort: 8880
   selector:
     app: orcl-ws-app
     commit: ${WERCKER_GIT_COMMIT}
