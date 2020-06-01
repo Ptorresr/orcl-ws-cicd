@@ -52,21 +52,21 @@ deploy:
         code: |
           mkdir $WERCKER_OUTPUT_DIR/kubernetes
           mv kubernetes_*.yml $WERCKER_OUTPUT_DIR/kubernetes
-    # Step 3: create Kubernetes entities if missing
+    # Step 3: Create Kubernetes entities if missing
     - kubectl:
         name: deploy to kubernetes
         server: $OKE_MASTER
         token: $OKE_TOKEN
         insecure-skip-tls-verify: true
         command: apply -f $WERCKER_OUTPUT_DIR/kubernetes/
-    # Step 4: wait 120 seconds for the deploy to be successful
+    # Step 4: Wait 120 seconds for the deploy to be successful
     - kubectl:
         name: set deployment timeout
         server: $OKE_MASTER
         token: $OKE_TOKEN
         insecure-skip-tls-verify: true
         command: patch deployment/orcl-ws-app -p '{"spec":{"progressDeadlineSeconds":120}}'
-    # Step 5: watch the deployment. If after 120s pods are considered healthy, the step will exit 0
+    # Step 5: Watch the deployment. If after 120s pods are considered healthy, the step will exit 0
     - kubectl:
         name: check deployment status
         server: $OKE_MASTER
