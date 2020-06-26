@@ -2,8 +2,8 @@
 Simple Python application to show CI/CD capabilities.
 """
 
-import cx_oracle
 from bottle import Bottle, run
+import cx_oracle
 
 app = Bottle()
 
