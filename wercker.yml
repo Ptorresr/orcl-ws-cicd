@@ -9,6 +9,7 @@ build:
             python3 -m venv orclvenv
             . orclvenv/bin/activate
             pip install -r requirements.pip
+
       # Step 2: install Oracle client basic lite
        - script:
          name: install oracle-instantclient19.6
@@ -20,6 +21,7 @@ build:
             wget https://download.oracle.com/otn_software/linux/instantclient/19600/oracle-instantclient19.6-basiclite-19.6.0.0.0-1.x86_64.rpm
             alien -i oracle-instantclient19.6-basiclite-19.6.0.0.0-1.x86_64.rpm
             export LD_LIBRARY_PATH=/usr/lib/oracle/19.6/client64/lib:$LD_LIBRARY_PATH
+
        # Step 3: run linter and tests
          - script:
         name: run tests
