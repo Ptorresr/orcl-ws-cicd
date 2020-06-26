@@ -64,7 +64,7 @@ def sal_inc(percentage):
     employees += '</table>'
     return str(employees)
 
-i
+
 @app.route('/add_commission/<value>')
 def add_commp(value):
     sql = '''select FIRST_NAME, LAST_NAME, SALARY, COMMISSION_PCT,
