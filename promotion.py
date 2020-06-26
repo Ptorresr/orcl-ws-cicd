@@ -2,9 +2,8 @@
 Simple Python application to show CI/CD capabilities.
 """
 
-from bottle import Bottle, run
 import cx_oracle
-
+from bottle import Bottle, run
 
 app = Bottle()
 
@@ -30,7 +29,6 @@ def conn():
 
 
 if __name__ == '__main__':
-    run(app, host='0.0.0.0', port=8007)
     DBUSER = 'hr'
     DBPASS = 'OraPTS#2020_'
     DBHOST = '130.61.252.65'
