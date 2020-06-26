@@ -2,74 +2,18 @@ build:
     box: python:3.7
     steps:
 
-    # Step 1: create virtual enviroment and install dependencies
-    - script:
+      # Step 1: create virtual enviroment and install dependencies
+      - script:
         name: install dependencies
         code: |
             python3 -m venv orclvenv
             . orclvenv/bin/activate
             pip install -r requirements.pip
-    # Step 2: install Oracle client basic lite
-    - script:
-        name: install oracle-instantclient19.6
-        code: |
-            echo "deb http://ftp.debian.org/debian experimental main" >> /etc/apt/sources.list
-            apt-get update
-            apt-get install -y alien
-            apt-get install -y libaio1
-            wget https://download.oracle.com/otn_software/linux/instantclient/19600/oracle-instantclient19.6-basiclite-19.6.0.0.0-1.x86_64.rpm
-            alien -i oracle-instantclient19.6-basiclite-19.6.0.0.0-1.x86_64.rpm
-            export LD_LIBRARY_PATH=/usr/lib/oracle/19.6/client64/lib:$LD_LIBRARY_PATH  
-    # Step 3: run linter and tests
-    - script:
+
+      # Step 2: run linter and tests
+      - script:
         name: run tests
         code: |
             . orclvenv/bin/activate
             flake8 --exclude=orclvenv* --statistics
             pytest -v --cov=promotion
-    # Step 4:Push application in docker image to OCIR PHX
-    - internal/docker-push:
-            entrypoint: ./promotion
-            cmd: 0.0.0.0 8880
-            env: "DB_USER=${DB_USER} DB_PASSWORD=${DB_PASSWORD} DB_HOST=${DB_HOST} DB_SERVICE=${DB_SERVICE}"
-            working-dir: $WERCKER_ROOT
-            tag: $WERCKER_GIT_COMMIT
-            ports: "8880"
-            username: $DOCKER_USERNAME
-            password: $DOCKER_PASSWORD
-            repository: $DOCKER_REPO
-            registry: https://phx.ocir.io
-
-deploy:
-    box: python:3.7
-    steps:
-
-    # Step 1: Expand environment variables in .template files and remove extension
-    - bash-template
-    # Step 2: Create a directory and move .yml template files inside
-    - script:
-        name: prepare Kubernetes files
-        code: |
-          mkdir $WERCKER_OUTPUT_DIR/kubernetes
-          mv kubernetes_*.yml $WERCKER_OUTPUT_DIR/kubernetes
-    # Step 3: Create Kubernetes entities if missing
-    - kubectl:
-        name: deploy to kubernetes
-        server: $OKE_MASTER
-        token: $OKE_TOKEN
-        insecure-skip-tls-verify: true
-        command: apply -f $WERCKER_OUTPUT_DIR/kubernetes/
-    # Step 4: Wait 120 seconds for the deploy to be successful
-    - kubectl:
-        name: set deployment timeout
-        server: $OKE_MASTER
-        token: $OKE_TOKEN
-        insecure-skip-tls-verify: true
-        command: patch deployment/orcl-ws-app -p '{"spec":{"progressDeadlineSeconds":120}}'
-    # Step 5: Watch the deployment. If after 120s pods are considered healthy, the step will exit 0
-    - kubectl:
-        name: check deployment status
-        server: $OKE_MASTER
-        token: $OKE_TOKEN
-        insecure-skip-tls-verify: true
-        command: rollout status deployment/orcl-ws-app
