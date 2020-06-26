@@ -9,14 +9,19 @@ from webtest import TestApp
 
 class TestPromotion:
 
-    def test_addition(self):
-        assert 1200 == promotion.addition(1150, 50)
+@app.route('/addition/<salary>/<amount>')
+def addition(salary, amount):
+    return str(int(salary) + int(amount))
 
-    def test_increment(self):
-        assert 1250 == promotion.increment(1000, 25)
 
-    def test_decrease(self):
-        assert 970 == promotion.decrease(1150, 180)
+@app.route('/increment/<salary>/<percentage>')
+def increment(salary, percentage):
+    return str(int(salary) * (1 + int(percentage)/100))
+
+
+@app.route('/decrease/<salary>/<amount>')
+def decrease(salary, amount):
+    return str(int(salary) - int(amount))
 
 
 @pytest.fixture
